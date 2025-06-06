@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WonderChat - AI Voice Chat</title>
+    <style>
+      /* Custom scrollbar for webkit browsers */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      /* Basic styles, Tailwind will override specifics */
+      body {
+        font-family: 'Lexend', sans-serif;
+        margin: 0; /* Ensure no default margin */
+      }
+      /* Example of gradient from original marketing page (if needed globally) */
+      .gradient-bg {
+        background-image: linear-gradient(to right, #6b46c1, #b794f4);
+      }
+      .primary-text-app { /* Renamed to avoid conflict if marketing uses .primary-text */
+        color: #4F46E5; 
+      }
+
+      /* Styles from AI-generated marketing pages */
+      .lexend-font { /* Already set on body, but can be used for specificity */
+        font-family: 'Lexend', "Noto Sans", sans-serif;
+      }
+      /* Hero gradient from AI homepage, can be component-specific or global if reused */
+      .marketing-bg-hero-gradient {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHZcLmVs0zhGbuLC2ER3Uql_wsBc3JskengEF7RtvDFt_rJ-y-WC_7wvQ7tU29Z8k2Ipdz6a690ywQZTI9H-WI8nbBnefMaq5KotoDl-P3DtXhjtXKy4TqbUoluFqx1OI25sxCtKqUAqdTCpeX4LjhYnfZSHaBijMh7GAEc0dFaOqgdfdHS4SkRcwB66HX231BdRT5nQ15DdWGTJA-d8e3mMx2pZ-r-6PtHjInrYDP9JJFutM8_h0Hf-Ow9JiSE-iqyEVyAIFmI_I");
+      }
+      .marketing-btn-primary {
+        background-color: #30abe8;
+        color: white;
+      }
+      .marketing-btn-primary:hover {
+        opacity: 0.9;
+      }
+      .marketing-btn-secondary {
+        background-color: #f0f3f4;
+        color: #111518;
+      }
+      .marketing-btn-secondary:hover {
+        background-color: #e2e8f0; /* Example hover for light gray */
+      }
+      .marketing-text-primary {
+        color: #30abe8;
+      }
+      .marketing-border-primary {
+        border-color: #30abe8;
+      }
+      .marketing-hover-lift:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      /* Styles from AI About Page */
+       .about-text-primary { /* Assuming this is the same as marketing-text-primary */
+        color: #30abe8;
+      }
+      /* Styles from AI Features Page */
+      .features-gradient-bg {
+         background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%);
+      }
+      .features-text-primary { /* Assuming this is the same as marketing-text-primary */
+        color: #30abe8;
+      }
+      /* Styles from AI For Parents Page */
+      .forparents-gradient-hero {
+        background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+      }
+      .forparents-gradient-cta {
+        background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+      }
+      .forparents-section-icon {
+        width: 48px;
+        height: 48px;
+        color: #30abe8;
+      }
+       .faq-item summary::-webkit-details-marker,
+       .faq-item summary::marker {
+        display: none;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    <!-- For Material Symbols Outlined used in About page -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.513.0",
+    "tailwindcss": "https://esm.sh/tailwindcss@^4.1.8",
+    "@prisma/client": "https://esm.sh/@prisma/client@^6.9.0",
+    "next-auth": "https://esm.sh/next-auth@^4.24.11",
+    "next-auth/": "https://esm.sh/next-auth@^4.24.11/",
+    "@next-auth/prisma-adapter": "https://esm.sh/@next-auth/prisma-adapter@^1.0.7",
+    "bcryptjs": "https://esm.sh/bcryptjs@^3.0.2",
+    "clsx": "https://esm.sh/clsx@^2.1.1",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@^3.3.0",
+    "@radix-ui/react-slot": "https://esm.sh/@radix-ui/react-slot@^1.2.3",
+    "class-variance-authority": "https://esm.sh/class-variance-authority@^0.7.1",
+    "@radix-ui/react-label": "https://esm.sh/@radix-ui/react-label@^2.1.7",
+    "sonner": "https://esm.sh/sonner@^2.0.5",
+    "next": "https://esm.sh/next@^15.3.3",
+    "next/": "https://esm.sh/next@^15.3.3/",
+    "zod": "https://esm.sh/zod@^3.25.51",
+    "@radix-ui/react-select": "https://esm.sh/@radix-ui/react-select@^2.2.5",
+    "@google/genai": "https://esm.sh/@google/genai@^1.4.0",
+    "@radix-ui/react-avatar": "https://esm.sh/@radix-ui/react-avatar@^1.1.10",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.6.2",
+    "@radix-ui/react-scroll-area": "https://esm.sh/@radix-ui/react-scroll-area@^1.2.9"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body> {/* Removed dark class, ThemeProvider will manage it */}
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </body>
+</html>

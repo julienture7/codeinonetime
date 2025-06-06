@@ -1,0 +1,27 @@
+
+{
+  "name": "wonderchat-websocket-proxy",
+  "version": "1.0.0",
+  "description": "WebSocket proxy for WonderChat to connect to Google Gemini Live API.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "websocket",
+    "proxy",
+    "gemini",
+    "google-ai"
+  ],
+  "author": "WonderChat Team",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.16.0",
+    "dotenv": "^16.4.5",
+    "google-auth-library": "^9.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
