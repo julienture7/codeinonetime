@@ -1,6 +1,5 @@
-
 import * as React from 'react';
-import { useHistory } from 'react-router-dom'; // Changed from useNavigate
+import { useNavigate } from 'react-router-dom'; // Changed from useHistory
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -13,7 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState('');
   const [name, setName] = React.useState(''); // Added for simple login
   const [isLoading, setIsLoading] = React.useState(false);
-  const history = useHistory(); // Changed from useNavigate
+  const navigate = useNavigate(); // Changed from useHistory
   const { login } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -27,7 +26,7 @@ export default function LoginPage() {
         login(email, name); // Use name for display, kidName set in dashboard
         toast.dismiss();
         toast.success('Signed in successfully!');
-        history.push('/dashboard'); // Changed from navigate
+        navigate('/dashboard'); // Changed from history.push
       } else {
         toast.dismiss();
         toast.error('Please fill in all fields.');

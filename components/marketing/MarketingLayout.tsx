@@ -1,7 +1,6 @@
-
 import * as React from 'react';
-import { Link, Switch, Route, useRouteMatch, Redirect } from 'react-router-dom'; // Changed imports
-import MarketingLogo from './MarketingLogo'; 
+import { Link, Routes, Route, useLocation, Navigate } from 'react-router-dom'; // Changed imports
+import MarketingLogo from './MarketingLogo';
 import MarketingHomePage from './MarketingHomePage';
 import MarketingAboutPage from './MarketingAboutPage';
 import MarketingFeaturesPage from './MarketingFeaturesPage';
@@ -9,17 +8,9 @@ import MarketingForParentsPage from './MarketingForParentsPage';
 
 const MarketingLayout: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const { path } = useRouteMatch(); // For nested routes
+  const location = useLocation();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
-  // Helper to ensure base path for routes (e.g. if layout is not at root "/")
-  // For this app, path is likely "/"
-  const routePath = (subPath: string) => {
-    if (path === '/') return `/${subPath}`.replace('//', '/'); // Avoid double slash if subPath starts with /
-    return `${path}/${subPath}`.replace('//', '/');
-  }
-  const indexPath = path === '/' ? path : `${path}/`;
 
 
   return (
@@ -34,9 +25,9 @@ const MarketingLayout: React.FC = () => {
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/">Home</Link>
-            <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to={routePath("about")}>About Us</Link>
-            <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to={routePath("features")}>Features</Link>
-            <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to={routePath("for-parents")}>For Parents</Link>
+            <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/about">About Us</Link>
+            <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/features">Features</Link>
+            <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/for-parents">For Parents</Link>
           </nav>
           <div className="flex items-center gap-3">
             <Link to="/login" className="hidden md:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 marketing-btn-secondary text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
@@ -52,34 +43,30 @@ const MarketingLayout: React.FC = () => {
             </button>
           </div>
         </header>
-        
+
         {isMobileMenuOpen && (
             <nav className="md:hidden flex flex-col items-center gap-4 py-4 bg-white shadow-lg">
                 <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-                <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to={routePath("about")} onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
-                <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to={routePath("features")} onClick={() => setIsMobileMenuOpen(false)}>Features</Link>
-                <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to={routePath("for-parents")} onClick={() => setIsMobileMenuOpen(false)}>For Parents</Link>
+                <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/about" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+                <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/features" onClick={() => setIsMobileMenuOpen(false)}>Features</Link>
+                <Link className="text-[#111518] text-sm font-medium leading-normal hover:marketing-text-primary transition-colors" to="/for-parents" onClick={() => setIsMobileMenuOpen(false)}>For Parents</Link>
             </nav>
         )}
 
         <main className="flex flex-1 flex-col">
-          <Switch>
-            <Route exact path={indexPath} component={MarketingHomePage} />
-            <Route path={routePath("about")} component={MarketingAboutPage} />
-            <Route path={routePath("features")} component={MarketingFeaturesPage} />
-            <Route path={routePath("for-parents")} component={MarketingForParentsPage} />
-            <Route path={routePath("privacy")}>
+          <Routes>
+            <Route index element={<MarketingHomePage />} />
+            <Route path="about" element={<MarketingAboutPage />} />
+            <Route path="features" element={<MarketingFeaturesPage />} />
+            <Route path="for-parents" element={<MarketingForParentsPage />} />
+            <Route path="privacy" element={
               <div><h1>Privacy Policy</h1><p>Coming soon...</p><Link to="/">Home</Link></div>
-            </Route>
-            <Route path={routePath("terms")}>
+            } />
+            <Route path="terms" element={
               <div><h1>Terms of Service</h1><p>Coming soon...</p><Link to="/">Home</Link></div>
-            </Route>
-            {/* If MarketingLayout is at "/", any non-matching subpath here could be a 404 within marketing,
-                or redirect to marketing home. App.tsx has the global 404.
-                To avoid clashes, this Switch should ideally handle all known marketing sub-paths.
-            */}
-            <Route render={() => <Redirect to={indexPath} />} /> {/* Fallback for unknown marketing sub-paths */}
-          </Switch>
+            } />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </main>
         <footer className="bg-[#111518] text-white py-12">
           <div className="px-6 md:px-10 max-w-5xl mx-auto">
@@ -91,16 +78,16 @@ const MarketingLayout: React.FC = () => {
               <div>
                 <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
                 <ul className="space-y-2">
-                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to={routePath("about")}>About Us</Link></li>
-                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to={routePath("features")}>Features</Link></li>
-                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to={routePath("for-parents")}>For Parents</Link></li>
+                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to="/about">About Us</Link></li>
+                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to="/features">Features</Link></li>
+                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to="/for-parents">For Parents</Link></li>
                 </ul>
               </div>
               <div>
                 <h3 className="text-lg font-semibold mb-3">Legal</h3>
                 <ul className="space-y-2">
-                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to={routePath("privacy")}>Privacy Policy</Link></li>
-                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to={routePath("terms")}>Terms of Service</Link></li>
+                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to="/privacy">Privacy Policy</Link></li>
+                  <li><Link className="text-sm text-gray-400 hover:marketing-text-primary transition-colors" to="/terms">Terms of Service</Link></li>
                 </ul>
               </div>
             </div>

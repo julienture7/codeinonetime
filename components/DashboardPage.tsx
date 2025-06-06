@@ -1,6 +1,5 @@
-
 import * as React from 'react';
-import { useHistory } from 'react-router-dom'; // Changed from useNavigate
+import { useNavigate } from 'react-router-dom'; // Changed from useHistory
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -13,8 +12,8 @@ import { useAuth } from '../App'; // Adjusted path
 
 export default function DashboardPage() {
   const { user, setKidName: setAuthKidName, isLoading: authIsLoading } = useAuth();
-  const history = useHistory(); // Changed from useNavigate
-  
+  const navigate = useNavigate(); // Changed from useHistory
+
   const [kidNameInput, setKidNameInput] = React.useState('');
   const [isSettingKidName, setIsSettingKidName] = React.useState(false);
   const [isCreatingSession, setIsCreatingSession] = React.useState(false);
@@ -34,7 +33,7 @@ export default function DashboardPage() {
       </div>
     );
   }
-  
+
   const handleSetKidName = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!kidNameInput.trim()) {
@@ -64,7 +63,7 @@ export default function DashboardPage() {
     setTimeout(() => {
       toast.dismiss();
       toast.success('Chat session ready! Redirecting...');
-      history.push(`/dashboard/chat/mockSession`); // Changed from navigate
+      navigate(`/dashboard/chat/mockSession`); // Changed from history.push
     }, 1000);
      setTimeout(() => setIsCreatingSession(false), 1100);
   };
@@ -119,10 +118,10 @@ export default function DashboardPage() {
         )}
         {user?.kidName && (
            <CardFooter>
-            <Button 
-              onClick={handleStartChat} 
+            <Button
+              onClick={handleStartChat}
               disabled={isCreatingSession || !user?.kidName}
-              size={"lg" as any} 
+              size={"lg" as any}
               className="w-full sm:w-auto"
             >
               {isCreatingSession ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <PlayCircle className="mr-2 h-5 w-5" />}

@@ -1,14 +1,14 @@
-
 import * as React from 'react';
 import {
   HashRouter as Router,
-  Switch,
+  Routes,
   Route,
-  Redirect,
+  Navigate,
   Link,
-  useHistory,
-  useRouteMatch,
-  useParams
+  useNavigate,
+  useLocation,
+  useParams,
+  Outlet
 } from 'react-router-dom';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
@@ -73,7 +73,7 @@ export const useTheme = () => {
 const ThemeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [theme, setTheme] = React.useState<'light' | 'dark'>(() => {
     const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    return storedTheme || 'light'; 
+    return storedTheme || 'light';
   });
 
   React.useEffect(() => {
@@ -128,7 +128,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       return null;
     });
   };
-  
+
   return (
     <AuthContext.Provider value={{ user, isLoading, login, logout, setKidName }}>
       {children}
@@ -138,7 +138,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { user, isLoading } = useAuth();
-  
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -148,17 +148,17 @@ function ProtectedRoute({ children }: { children: JSX.Element }) {
   }
 
   if (!user) {
-    return <Redirect to="/login" push={false} />;
+    return <Navigate to="/login" replace />;
   }
-  
+
   return children;
 }
 
 function DashboardLayoutRoutes() { // Changed name to avoid conflict if DashboardLayout is a component name
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const history = useHistory();
-  const { path } = useRouteMatch(); // For nested routes
+  const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     if (theme !== 'dark') {
@@ -173,14 +173,14 @@ function DashboardLayoutRoutes() { // Changed name to avoid conflict if Dashboar
 
   const handleLogout = () => {
     logout();
-    history.push('/login'); 
+    navigate('/login');
     toast.success("You've been logged out.");
   };
 
   if (!user) { // Should be caught by ProtectedRoute, but good for direct access attempt
-    return <Redirect to="/login" push={false} />;
+    return <Navigate to="/login" replace />;
   }
-  
+
   return (
     <div className="min-h-screen flex flex-col bg-muted/20 dark:bg-background">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -205,18 +205,18 @@ function DashboardLayoutRoutes() { // Changed name to avoid conflict if Dashboar
       <nav className="bg-card border-b border-border/40">
         <div className="container max-w-screen-2xl py-2 px-4">
           <ul className="flex space-x-4 text-sm">
-            <li><Link to={`${path}`} className="text-muted-foreground hover:text-primary flex items-center"><LayoutDashboard className="w-4 h-4 mr-1"/>Dashboard</Link></li>
-             <li><Link to={`${path}/settings`} className="text-muted-foreground hover:text-primary flex items-center"><Settings className="w-4 h-4 mr-1"/>Settings</Link></li>
+            <li><Link to="/dashboard" className="text-muted-foreground hover:text-primary flex items-center"><LayoutDashboard className="w-4 h-4 mr-1"/>Dashboard</Link></li>
+             <li><Link to="/dashboard/settings" className="text-muted-foreground hover:text-primary flex items-center"><Settings className="w-4 h-4 mr-1"/>Settings</Link></li>
           </ul>
         </div>
       </nav>
       <main className="flex-1 p-4 md:p-8 container max-w-screen-2xl">
-        <Switch>
-            <Route exact path={path} component={DashboardPage} />
-            <Route path={`${path}/chat/:sessionId`} component={ChatPageWrapper} />
-            <Route path={`${path}/settings`} component={SettingsPage} />
-            <Route render={() => <Redirect to={path} />} /> {/* Fallback for unknown dashboard paths */}
-        </Switch>
+        <Routes>
+            <Route index element={<DashboardPage />} />
+            <Route path="chat/:sessionId" element={<ChatPageWrapper />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
       </main>
       <footer className="py-6 md:px-8 md:py-0 border-t bg-background">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
@@ -262,10 +262,10 @@ function SettingsPage() {
           </div>
           <div>
             <Label htmlFor="kidName">Child's Name</Label>
-            <Input 
-              id="kidName" 
-              value={kidNameInput} 
-              onChange={(e) => setKidNameInput(e.target.value)} 
+            <Input
+              id="kidName"
+              value={kidNameInput}
+              onChange={(e) => setKidNameInput(e.target.value)}
               placeholder="Enter child's name"
             />
           </div>
@@ -285,7 +285,7 @@ function ChatPageWrapper() {
 
   if (!user || !user.kidName) {
     toast.error("Please set your kid's name in the dashboard or settings first.");
-    return <Redirect to="/dashboard" push={false} />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   const mockChatConfig: ChatConfig = {
@@ -302,7 +302,7 @@ function ChatPageWrapper() {
       createdAt: new Date()
     }
   ];
-  
+
   return (
     <ChatPageComponent // Use renamed import
       sessionId={sessionId || "mockSession123"} // Use sessionId from params or fallback
@@ -339,29 +339,15 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/dashboard">
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/dashboard/*" element={
               <ProtectedRoute>
                 <DashboardLayoutRoutes />
               </ProtectedRoute>
-            </Route>
-            {/* MarketingLayout now handles its own sub-routes */}
-            <Route path="/" component={MarketingLayout} /> 
-            {/* Fallback for any other unmatched routes - Note: This catch-all in v5 is a Route without path, last in Switch.
-                If MarketingLayout is at path="/", it needs to be specific or its internal Switch handles its own 404s.
-                For a global 404, it should be the very last route in this top-level Switch.
-                Putting MarketingLayout at "/" means it catches everything not caught by /login or /dashboard.
-                Its internal Switch will then try to match. If nothing matches there, it should have its own 404 or redirect.
-                A truly global 404 might be tricky if "/" is a layout.
-                For now, let MarketingLayout handle its unmatched sub-paths, and a very broad path like "/" will go to MarketingLayout.
-                If a path is completely unrecognized, it might fall through or depend on how MarketingLayout handles it.
-                Let's add a specific catch-all for App.tsx if MarketingLayout's Switch doesn't catch everything.
-                This would be better if MarketingLayout wasn't on path="/".
-                Alternative: Route path="*" component={NotFoundPage} - but v5 prefers no-path Route.
-             */}
-             {/* <Route component={NotFoundPage} />  This would be the global 404 if no other top-level route matches. */}
-          </Switch>
+            } />
+            <Route path="/*" element={<MarketingLayout />} />
+          </Routes>
         </Router>
       </AuthProvider>
     </ThemeProvider>
