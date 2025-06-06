@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -76,7 +75,7 @@ const MarketingHomePage: React.FC = () => {
               </div>
               <h3 className="text-[#111518] text-xl font-medium leading-normal mb-2">Parents Sign Up</h3>
               <p className="text-[#637c88] text-sm font-normal leading-normal">Easily create an account and set up your child's profile.</p>
-              <img alt="Download App Illustration" className="mt-6 w-32 h-32 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsw5srLF-yAoHWp5_2SQSuwlZ-z7_MZosuYbVmqYRxG51a2ayv_fqtVdNpyatZG-P5T5FdnB4ZDe86EfGMYZoIyHjfvyvtdtYb0ev-dsZNwGGOyDCkyhCuc0-vnX75AEzv1UDSAEi8WOKYSWrbG4gjbqcJULvCI9T4gLkofRVtjZMqaZFZDtYR-k7FYfaiVh6R2orHVETDl-HWMyiXokjEXnTtVGCVbnlHRIkccpHzIaWH_4ok607gSBebc7Izq1NXdhwFeSv77no"/>
+              <img alt="Download App Illustration" className="mt-6 w-32 h-32 object-contain" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=300&h=300&fit=crop&crop=center&auto=format&q=80"/>
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex items-center justify-center size-16 rounded-full bg-sky-100 marketing-text-primary border-2 marketing-border-primary shadow-lg">
@@ -84,7 +83,7 @@ const MarketingHomePage: React.FC = () => {
               </div>
               <h3 className="text-[#111518] text-xl font-medium leading-normal mb-2">Personalize Experience</h3>
               <p className="text-[#637c88] text-sm font-normal leading-normal">Set up your child's name for the AI and choose a voice.</p>
-              <img alt="Create Profile Illustration" className="mt-6 w-32 h-32 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdzb-HQjf4uxhkB3t-MJ0ugN643_EB-U8-DTRNicQp20NSeeTjSoNzep0_-dHjc1M6wJkqS9-SVP2d88T7YL3ZOblhVeahcv80TwzGjgCi1CJiQ-5MNBPyaXrN_dz26D3lQlO9F09J49MbvWH1KSaf9e7TAp1qLKARAExc54XXNC-XYdxReiLBt_CtfQizFDQtRSsp_r-9a8JwlEtJ_P45dxqKvM6II3G2lQELgR6GS2avBA9zKm_oqysicw_HHrZhkrV5n6GDImo"/>
+              <img alt="Create Profile Illustration" className="mt-6 w-32 h-32 object-contain" src="https://images.unsplash.com/photo-1580894894513-541e068a3e2b?w=300&h=300&fit=crop&crop=center&auto=format&q=80"/>
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex items-center justify-center size-16 rounded-full bg-sky-100 marketing-text-primary border-2 marketing-border-primary shadow-lg">
@@ -92,7 +91,7 @@ const MarketingHomePage: React.FC = () => {
               </div>
               <h3 className="text-[#111518] text-xl font-medium leading-normal mb-2">Start Chatting</h3>
               <p className="text-[#637c88] text-sm font-normal leading-normal">Let your child explore and interact with our AI voice assistant.</p>
-              <img alt="Start Chatting Illustration" className="mt-6 w-32 h-32 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHhDs7tqOiuOGlkD9Feb_w7QYJuci8PjuUhk6kTyNkqXyww_BTA1YSS2lED1M5EZDTojazzApr1XdNKF9Yr-HVNkO4yDwtbzv9s5b5kGCg_e1cI8MGG82h14FFF7pE-rj0wjOzRw9xbnsllJDsPmlXdtyI2K0hFcGTVnRMJbPzb4qFQFkiZgOnfQdyI0UVJNFsl7woS_ptUgShZiFC_0FQuC9yX78kKS9owRf-RYVRREfeUrU9bprVKIQf_6wUcl9OC3YjFNpzc50"/>
+              <img alt="Start Chatting Illustration" className="mt-6 w-32 h-32 object-contain" src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=300&h=300&fit=crop&crop=center&auto=format&q=80"/>
             </div>
           </div>
         </div>
@@ -107,7 +106,7 @@ const MarketingHomePage: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex flex-col gap-4 rounded-xl overflow-hidden bg-white shadow-lg marketing-hover-lift transition-all duration-300">
-              <div className="w-full h-56 bg-center bg-no-repeat bg-cover" style={{backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuDlfLu8Y4N4_9fsaPd8DKs9JoFoKvfFyg4iOIhESEi84V1qKuI34785BPZF-2hlRBl3qhp0P6XA7St-mE-pwgcQB3jxNRHsyNUeMzs5r706Hr6-us_h8WSdC1KMPye3vZP89JOhR3fcx5UpfsNhjaLw5-Cm1YDtfHRV79qENaF3v8PLOPOsW3rDpobk4WmBseJydYnhVx1LwafNknuqZCRzK5LR8Ya-FxZzM-CTyuzPaSHM5zkrULk49E4FLUfBzXtv9ioy32ezEoA")`}}></div>
+              <div className="w-full h-56 bg-center bg-no-repeat bg-cover" style={{backgroundImage: `url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop&crop=center&auto=format&q=80")`}}></div>
               <div className="p-6">
                 <h3 className="text-[#111518] text-xl font-medium leading-normal mb-2">Interactive Voice Games</h3>
                 <p className="text-[#637c88] text-sm font-normal leading-normal">
@@ -116,7 +115,7 @@ const MarketingHomePage: React.FC = () => {
               </div>
             </div>
             <div className="flex flex-col gap-4 rounded-xl overflow-hidden bg-white shadow-lg marketing-hover-lift transition-all duration-300">
-              <div className="w-full h-56 bg-center bg-no-repeat bg-cover" style={{backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuAZK3n0qoPGd7HhyXTjtY_sxPCwJ2nwDsT8Ad4nUiPUJGKs-BPQ5nFkg1fyaZAp_QyaJinmEe1sztdoDTuOUbVATzDURPaKvNrY95doLeZ8BBK7S3Va8hqux2Szl1nkFOXjd3GEMzFBMe7HYZbWkzk7Q3kO9b8KVTVGM8DGlKKjOYXOR684y9sMcJpWKkAVm-7zCWi10w_tZ_TuB40w98wTwqW15yOUf5JJiM8Ak1TNU5Jtsfz6QCl5s3BJry_Fo6scptk4-W88idU")`}}></div>
+              <div className="w-full h-56 bg-center bg-no-repeat bg-cover" style={{backgroundImage: `url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=center&auto=format&q=80")`}}></div>
               <div className="p-6">
                 <h3 className="text-[#111518] text-xl font-medium leading-normal mb-2">Storytelling Adventures</h3>
                 <p className="text-[#637c88] text-sm font-normal leading-normal">Immerse your child in captivating stories and adventures narrated by our AI voice assistant.</p>
@@ -144,8 +143,8 @@ const MarketingHomePage: React.FC = () => {
           </div>
         </div>
       </section>
-      <section className="py-16 md:py-24 marketing-bg-primary"> 
-        <div className="px-6 md:px-10 max-w-3xl mx-auto text-center" style={{ backgroundColor: '#30abe8' }}> 
+      <section className="py-16 md:py-24 marketing-bg-primary">
+        <div className="px-6 md:px-10 max-w-3xl mx-auto text-center" style={{ backgroundColor: '#30abe8' }}>
           <h2 className="text-white text-3xl sm:text-4xl font-bold leading-tight tracking-[-0.015em] mb-6">Ready to Unlock Your Child's Voice?</h2>
           <p className="text-white/90 text-base sm:text-lg font-normal leading-normal mb-8">Join thousands of parents who trust WonderChat for their child's development and fun.</p>
           <Link to="/login" className="inline-flex min-w-[150px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-6 sm:h-14 sm:px-8 bg-white marketing-text-primary text-base sm:text-lg font-bold leading-normal tracking-[0.015em] hover:bg-gray-100 transition-colors shadow-lg">

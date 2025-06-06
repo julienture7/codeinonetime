@@ -36,57 +36,86 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-muted/40 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <img src="https://picsum.photos/seed/applogo/80/80" alt="WonderChat Logo" className="w-20 h-20 mx-auto mb-4 rounded-full" />
-          <CardTitle className="text-2xl font-bold">Welcome to WonderChat!</CardTitle>
-          <CardDescription>Sign in or create a mock account to continue.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="name">Your Name (Parent)</Label>
-              <Input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your Name"
-                required
-                disabled={isLoading}
-              />
+    <div className="min-h-screen marketing-bg-hero-gradient">
+      <div className="flex items-center justify-center min-h-screen p-4">
+        <div className="w-full max-w-md">
+          {/* Logo and Header */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-2xl font-bold marketing-text-primary">W</span>
+              </div>
             </div>
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-                disabled={isLoading}
-              />
-            </div>
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                disabled={isLoading}
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Signing In...' : 'Sign In / Register (Mock)'}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+            <h1 className="text-white text-3xl font-bold mb-2">Welcome to WonderChat</h1>
+            <p className="text-white/90 text-lg">Safe AI voice chat for kids</p>
+          </div>
+
+          {/* Login Card */}
+          <Card className="border-0 shadow-xl bg-white/95 backdrop-blur">
+            <CardHeader className="text-center pb-4">
+              <CardTitle className="text-2xl font-bold text-[#111518]">Get Started</CardTitle>
+              <CardDescription className="text-[#637c88]">Sign in or create your account to continue</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="name" className="text-[#111518] font-medium">Your Name (Parent)</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your Name"
+                    required
+                    disabled={isLoading}
+                    className="mt-1 border-[#dce2e5] focus:marketing-border-primary"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email" className="text-[#111518] font-medium">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    required
+                    disabled={isLoading}
+                    className="mt-1 border-[#dce2e5] focus:marketing-border-primary"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="password" className="text-[#111518] font-medium">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                    disabled={isLoading}
+                    className="mt-1 border-[#dce2e5] focus:marketing-border-primary"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full marketing-btn-primary text-lg font-bold py-3 h-auto shadow-lg hover:shadow-xl transition-all duration-200"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Signing In...' : 'Get Started Free'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Footer */}
+          <div className="text-center mt-8">
+            <p className="text-white/80 text-sm">
+              Join thousands of parents who trust WonderChat for their child's development
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

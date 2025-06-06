@@ -182,31 +182,41 @@ function DashboardLayoutRoutes() { // Changed name to avoid conflict if Dashboar
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/20 dark:bg-background">
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
-          <Link to="/" className="flex items-center space-x-2">
-            <img src="https://picsum.photos/seed/applogo/32/32" alt="WonderChat Logo" className="h-8 w-8 rounded-full" />
-            <span className="font-bold text-lg text-foreground">WonderChat</span>
+    <div className="min-h-screen flex flex-col bg-slate-50">
+      <header className="sticky top-0 z-50 w-full bg-white border-b border-[#dce2e5] shadow-sm">
+        <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-6">
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center">
+              <span className="text-white text-lg font-bold">W</span>
+            </div>
+            <span className="font-bold text-xl text-[#111518]">WonderChat</span>
           </Link>
-          <div className="flex items-center space-x-3">
-            <span className="text-sm text-muted-foreground hidden sm:inline">
+          <div className="flex items-center space-x-4">
+            <span className="text-sm text-[#637c88] hidden sm:inline font-medium">
               {user.name} {user.kidName ? `(Parent of ${user.kidName})` : ''}
             </span>
-             <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
+             <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme" className="hover:bg-sky-50 marketing-text-primary">
               {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
             </Button>
-            <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Log out">
-              <LogOut className="h-5 w-5 text-red-500" />
+            <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Log out" className="hover:bg-red-50 text-red-500">
+              <LogOut className="h-5 w-5" />
             </Button>
           </div>
         </div>
       </header>
-      <nav className="bg-card border-b border-border/40">
-        <div className="container max-w-screen-2xl py-2 px-4">
-          <ul className="flex space-x-4 text-sm">
-            <li><Link to="/dashboard" className="text-muted-foreground hover:text-primary flex items-center"><LayoutDashboard className="w-4 h-4 mr-1"/>Dashboard</Link></li>
-             <li><Link to="/dashboard/settings" className="text-muted-foreground hover:text-primary flex items-center"><Settings className="w-4 h-4 mr-1"/>Settings</Link></li>
+      <nav className="bg-white border-b border-[#dce2e5]">
+        <div className="container max-w-screen-2xl py-3 px-4 md:px-6">
+          <ul className="flex space-x-6 text-sm">
+            <li>
+              <Link to="/dashboard" className="text-[#637c88] hover:marketing-text-primary flex items-center font-medium transition-colors">
+                <LayoutDashboard className="w-4 h-4 mr-2"/>Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/settings" className="text-[#637c88] hover:marketing-text-primary flex items-center font-medium transition-colors">
+                <Settings className="w-4 h-4 mr-2"/>Settings
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
@@ -218,9 +228,9 @@ function DashboardLayoutRoutes() { // Changed name to avoid conflict if Dashboar
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </main>
-      <footer className="py-6 md:px-8 md:py-0 border-t bg-background">
+      <footer className="py-6 md:px-8 md:py-0 border-t bg-white">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
-          <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="text-balance text-center text-sm leading-loose text-[#637c88] md:text-left">
             &copy; {new Date().getFullYear()} WonderChat. All rights reserved.
           </p>
         </div>
@@ -245,37 +255,81 @@ function SettingsPage() {
   };
 
   return (
-    <Card className="max-w-lg mx-auto">
-      <CardHeader>
-        <CardTitle>Settings</CardTitle>
-        <CardDescription>Manage your account and child's profile.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSave} className="space-y-4">
-          <div>
-            <Label htmlFor="userName">Your Name</Label>
-            <Input id="userName" value={user?.name || ''} disabled className="bg-muted/50"/>
+    <div className="space-y-8">
+      {/* Settings Header with Marketing Style */}
+      <div className="text-center mb-12">
+        <h1 className="text-[#111518] text-4xl font-bold leading-tight tracking-[-0.015em] mb-4">
+          Account Settings ⚙️
+        </h1>
+        <p className="text-[#637c88] text-lg font-normal leading-normal max-w-2xl mx-auto">
+          Manage your account information and update your child's profile settings.
+        </p>
+      </div>
+
+      <Card className="border border-[#dce2e5] shadow-lg marketing-hover-lift transition-all duration-300 max-w-2xl mx-auto">
+        <CardHeader className="text-center">
+          <div className="marketing-text-primary size-16 p-4 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Settings className="h-8 w-8" />
           </div>
-          <div>
-            <Label htmlFor="userEmail">Your Email</Label>
-            <Input id="userEmail" value={user?.email || ''} disabled className="bg-muted/50"/>
-          </div>
-          <div>
-            <Label htmlFor="kidName">Child's Name</Label>
-            <Input
-              id="kidName"
-              value={kidNameInput}
-              onChange={(e) => setKidNameInput(e.target.value)}
-              placeholder="Enter child's name"
-            />
-          </div>
-          <Button type="submit" disabled={isSaving}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
-            Save Changes
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+          <CardTitle className="text-[#111518] text-2xl font-bold leading-tight">Profile Settings</CardTitle>
+          <CardDescription className="text-[#637c88] text-base">
+            Update your account details and personalize your child's experience.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSave} className="space-y-6">
+            <div className="grid gap-6">
+              <div>
+                <Label htmlFor="userName" className="text-[#111518] text-base font-medium">Your Name (Parent)</Label>
+                <Input
+                  id="userName"
+                  value={user?.name || ''}
+                  disabled
+                  className="mt-2 bg-slate-50 border-[#dce2e5] text-base h-12 text-[#637c88]"
+                />
+                <p className="text-[#637c88] text-sm mt-1">This information cannot be changed.</p>
+              </div>
+
+              <div>
+                <Label htmlFor="userEmail" className="text-[#111518] text-base font-medium">Email Address</Label>
+                <Input
+                  id="userEmail"
+                  value={user?.email || ''}
+                  disabled
+                  className="mt-2 bg-slate-50 border-[#dce2e5] text-base h-12 text-[#637c88]"
+                />
+                <p className="text-[#637c88] text-sm mt-1">This information cannot be changed.</p>
+              </div>
+
+              <div>
+                <Label htmlFor="kidName" className="text-[#111518] text-base font-medium">Child's Name</Label>
+                <Input
+                  id="kidName"
+                  value={kidNameInput}
+                  onChange={(e) => setKidNameInput(e.target.value)}
+                  placeholder="Enter your child's name"
+                  className="mt-2 border-[#dce2e5] focus:marketing-border-primary text-base h-12"
+                />
+                <p className="text-[#637c88] text-sm mt-1">
+                  This name will be used by our AI to create personalized conversations.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <Button
+                type="submit"
+                disabled={isSaving}
+                className="w-full marketing-btn-primary text-lg font-bold py-3 h-auto shadow-lg hover:shadow-xl transition-all duration-200"
+              >
+                {isSaving ? <Loader2 className="mr-2 h-5 w-5 animate-spin"/> : <Settings className="mr-2 h-5 w-5" />}
+                Save Changes
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 

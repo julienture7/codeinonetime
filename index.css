@@ -88,3 +88,33 @@
 .gradient-bg {
   @apply bg-gradient-to-br from-purple-600 via-pink-500 to-red-500;
 }
+
+/* Marketing page styles */
+.marketing-bg-hero-gradient {
+  background: linear-gradient(135deg, #30abe8 0%, #1e90ff 100%);
+}
+
+.marketing-btn-primary {
+  @apply bg-sky-500 hover:bg-sky-600 text-white;
+}
+
+.marketing-text-primary {
+  @apply text-sky-500;
+}
+
+.marketing-border-primary {
+  @apply border-sky-500;
+}
+
+.marketing-bg-primary {
+  @apply bg-sky-500;
+}
+
+.marketing-hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.marketing-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
